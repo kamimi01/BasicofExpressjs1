@@ -15,3 +15,14 @@ exports.show = function(req, res) {
 exports.new = function(req, res) {
     res.render('posts/new');
 };
+exports.create = function(req, res) {
+    // フォームから渡ってきたデータでpostを作る
+    var post = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    // postsの末尾にpostを加える
+    posts.push(post);
+    // 一覧にリダイレクト
+    res.redirect('/');
+};

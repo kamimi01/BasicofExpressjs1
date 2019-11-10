@@ -27,9 +27,9 @@ app.get('/', post.index);
 app.get('/posts/:id([0-9]+)', post.show);
 // 記事の新規作成のフォーム表示
 app.get('/posts/new', post.new);
-/*
 // 記事の新規作成した記事の表示
 app.post('/posts/create', post.create);
+/*
 // 記事の更新フォーム
 app.get('/posts/:id/edit', post.edit);
 // 記事の更新を実施する
