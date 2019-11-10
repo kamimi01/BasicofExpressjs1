@@ -2,6 +2,7 @@
 // appとすると、expressを使ってオブジェクトを作ってくれる
 var express = require('express'),
     logger = require('morgan'),
+    bodyParser = require('body-parser'),
     app = express();
 
 // テンプレートを読み込むための設定
@@ -18,6 +19,8 @@ app.set('view engine', 'ejs');
 // 静的なファイルは、/publicから読み込みしてほしい、とする
 // 開発中に便利なログ情報を表示することができる
 // middlewareはいくつも重ねることができるが、次のmiddlewareを実行するには、next()を忘れずに
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(logger('dev'));
 app.use(express.static(__dirname + '/public'))
 /*
@@ -42,17 +45,20 @@ app.get('/', function(req,res) {
 
 // 取ってきたidに対して、別の処理をかますときは
 // パラメータに対して共通の処理をしたい場合：param
+/*
 app.param('id', function(req, res, next, id) {
     var users = ['taguchi', 'fkoji', 'dotinstall'];
     req.params.name = users[id];
     next();
 });
+*/
 
-app.get('/hello/:id', function(req, res) {
-    res.send('hello ' + req.params.name);
+app.get('/new', function(req, res) {
+    res.render('new');
 });
-app.get('/bye/:id', function(req, res) {
-    res.send('bye ' + req.params.name);
+app.get('/create', function(req, res) {
+    // res.send('bye ' + req.params.name);
+    res.send(req.body.name);
 });
 
 app.listen(3000);
