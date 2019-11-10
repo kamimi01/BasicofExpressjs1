@@ -56,7 +56,7 @@ app.param('id', function(req, res, next, id) {
 app.get('/new', function(req, res) {
     res.render('new');
 });
-app.get('/create', function(req, res) {
+app.post('/create', function(req, res) {
     // res.send('bye ' + req.params.name);
     res.send(req.body.name);
 });
