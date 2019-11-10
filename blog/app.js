@@ -4,7 +4,8 @@ var express = require('express'),
     logger = require('morgan'),
     bodyParser = require('body-parser'),
     app = express(),
-    post = require('./routes/post');
+    post = require('./routes/post'),
+    methodOverride = require('method-override');
 
 // テンプレートを読み込むための設定
 // テンプレートがどこにあるか設定
@@ -16,12 +17,13 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 // ブラウザは、getとpostにしか対応していないので、putとdeleteにも対応できるようにするmiddlewareが必要
-app.use(express.methodOverride());
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 
 // routing（いろんな関数を書くのだが、見通しが悪くなるので、別ファイルに書く）
 // 記事一覧
 app.get('/', post.index);
+/*
 // 記事の新規作成のフォーム表示
 app.get('/posts/new', post.new);
 // 記事の新規作成した記事の表示
@@ -34,6 +36,7 @@ app.get('/posts/:id/edit', post.edit);
 app.put('/posts/:id', post.update);
 // 記事の削除
 app.delete('/posts/:id', post.destroy);
+*/
 
 
 app.listen(3000);
