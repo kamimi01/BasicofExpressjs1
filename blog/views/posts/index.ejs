@@ -2,7 +2,15 @@
     <h1>Posts</h1>
     <ul>
         <% for (var i=0; i<posts.length; i++) { %>
-        <li><a href="/posts/<%= i %>"><%= posts[i].title %></li>
+        <li>
+            <a href="/posts/<%= i %>"><%= posts[i].title %></a>
+            <a href="/posts/<%= i %>/edit">[Edit]</a>
+            <form method="post" action="/posts/<%= i %>">
+            <input type="submit" value="del">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="id" value="<%= i %>">
+            </form>
+        </li>
         <% } %>
     </ul>
     <p><a href="/posts/new">Add new</a></p>
