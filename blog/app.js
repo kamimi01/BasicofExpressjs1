@@ -23,13 +23,13 @@ app.use(logger('dev'));
 // routing（いろんな関数を書くのだが、見通しが悪くなるので、別ファイルに書く）
 // 記事一覧
 app.get('/', post.index);
+// 記事の詳細画面
+app.get('/posts/:id', post.show);
 /*
 // 記事の新規作成のフォーム表示
 app.get('/posts/new', post.new);
 // 記事の新規作成した記事の表示
 app.post('/posts/create', post.create);
-// 記事の詳細画面
-app.get('/posts/:id', post.show);
 // 記事の更新フォーム
 app.get('/posts/:id/edit', post.edit);
 // 記事の更新を実施する
