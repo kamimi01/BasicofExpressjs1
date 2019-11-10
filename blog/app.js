@@ -24,10 +24,10 @@ app.use(logger('dev'));
 // 記事一覧
 app.get('/', post.index);
 // 記事の詳細画面
-app.get('/posts/:id', post.show);
-/*
+app.get('/posts/:id([0-9]+)', post.show);
 // 記事の新規作成のフォーム表示
 app.get('/posts/new', post.new);
+/*
 // 記事の新規作成した記事の表示
 app.post('/posts/create', post.create);
 // 記事の更新フォーム
