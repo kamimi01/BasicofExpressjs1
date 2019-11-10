@@ -12,3 +12,6 @@ exports.index = function(req, res) {
 exports.show = function(req, res) {
     res.render('posts/show', {post: posts[req.params.id]});
 };
+exports.new = function(req, res) {
+    res.render('posts/new');
+};
