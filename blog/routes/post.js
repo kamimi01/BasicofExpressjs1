@@ -18,6 +18,16 @@ exports.new = function(req, res) {
 exports.edit = function(req, res) {
     res.render('posts/edit', {post: posts[req.params.id], id: req.params.id});
 };
+exports.update = function(req, res) {
+    // データを書き換える
+    // 渡ってきたidに対して
+    posts[req.body.id] = {
+        title: req.body.title,
+        body: req.body.body
+    };
+    // 一覧にリダイレクト
+    res.redirect('/');
+};
 exports.create = function(req, res) {
     // フォームから渡ってきたデータでpostを作る
     var post = {
