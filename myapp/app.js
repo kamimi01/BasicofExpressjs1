@@ -32,10 +32,27 @@ app.use(function(req, res, next) {
 // usersの後の文言を処理の中に表示させる（URLの一部を取得することができる）
 // ファイルを読み出したい場合には、sendFileを使用する
 // わざわざ指定するのは面倒なので、express.staticを使用する
+/*
 app.get('/', function(req,res) {
     // スラッシュにアクセスしてきたら、index.ejsにアクセス
     // 値を渡すこともできる
-    res.render('index', {title: 'titleです'});
+    res.render('index', {title: 'タイトルだよ'});
+});
+*/
+
+// 取ってきたidに対して、別の処理をかますときは
+// パラメータに対して共通の処理をしたい場合：param
+app.param('id', function(req, res, next, id) {
+    var users = ['taguchi', 'fkoji', 'dotinstall'];
+    req.params.name = users[id];
+    next();
+});
+
+app.get('/hello/:id', function(req, res) {
+    res.send('hello ' + req.params.name);
+});
+app.get('/bye/:id', function(req, res) {
+    res.send('bye ' + req.params.name);
 });
 
 app.listen(3000);
