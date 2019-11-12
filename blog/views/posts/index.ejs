@@ -7,6 +7,7 @@
             <a href="/posts/<%= i %>/edit">[Edit]</a>
             <form method="post" action="/posts/<%= i %>?_method=DELETE">
             <input type="submit" value="del">
+            <input type="hidden" name="_csrf" value="<%= csrftoken %>">
             <input type="hidden" name="_method" value="delete">
             <input type="hidden" name="id" value="<%= i %>">
             </form>
