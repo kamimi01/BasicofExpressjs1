@@ -49,5 +49,10 @@ app.put('/posts/:id', post.update);
 // 記事の削除
 app.delete('/posts/:id', post.destroy);
 
+// エラー処理（渡されたidが違うとき）
+app.use(function(err, req, res, next) {
+    res.send(err.message);
+});
+
 app.listen(3000);
 console.log("server starting...");
