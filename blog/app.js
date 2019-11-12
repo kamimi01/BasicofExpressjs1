@@ -5,7 +5,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     app = express(),
     post = require('./routes/post'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    connect = require('connect');
 
 // テンプレートを読み込むための設定
 // テンプレートがどこにあるか設定
