@@ -21,12 +21,15 @@ exports.edit = function(req, res) {
 exports.update = function(req, res) {
     // データを書き換える
     // 渡ってきたidに対して
+    console.log("データは渡せたが、redirectはまだ");
     posts[req.body.id] = {
         title: req.body.title,
         body: req.body.body
     };
+    console.log("updateが実行された、redirectはまだ");
     // 一覧にリダイレクト
     res.redirect('/');
+    console.log("updateが実行された、redirectも成功");
 };
 exports.create = function(req, res) {
     // フォームから渡ってきたデータでpostを作る
