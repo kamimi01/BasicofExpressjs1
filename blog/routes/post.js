@@ -18,25 +18,30 @@ exports.new = function(req, res) {
 exports.edit = function(req, res) {
     res.render('posts/edit', {post: posts[req.params.id], id: req.params.id});
 };
-exports.update = function(req, res) {
+exports.update = function(req, res, next) {
     // データを書き換える
     // 渡ってきたidに対して
-    console.log("データは渡せたが、redirectはまだ");
-    posts[req.body.id] = {
-        title: req.body.title,
-        body: req.body.body
-    };
-    console.log("updateが実行された、redirectはまだ");
-    // 一覧にリダイレクト
-    res.redirect('/');
-    console.log("updateが実行された、redirectも成功");
+    if (req.body.id !== req.params.id) {
+        next(new Error('ID not valid'));
+    } else {
+        posts[req.body.id] = {
+            title: req.body.title,
+            body: req.body.body
+        };
+        // 一覧にリダイレクト
+        res.redirect('/');
+    }
 };
-exports.destroy = function(req, res) {
-    // データの削除（splice）
-    // 第二引数は、削除する数
-    posts.splice(req.body.id, 1);
-    // 一覧にリダイレクト
-    res.redirect('/');
+exports.destroy = function(req, res, next) {
+    if (req.body.id !== req.params.id) {
+        next(new Error('ID not valid'));
+    } else {
+        // データの削除（splice）
+        // 第二引数は、削除する数
+        posts.splice(req.body.id, 1);
+        // 一覧にリダイレクト
+        res.redirect('/');
+    }
 };
 exports.create = function(req, res) {
     // フォームから渡ってきたデータでpostを作る
