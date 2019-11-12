@@ -31,6 +31,13 @@ exports.update = function(req, res) {
     res.redirect('/');
     console.log("updateが実行された、redirectも成功");
 };
+exports.destroy = function(req, res) {
+    // データの削除（splice）
+    // 第二引数は、削除する数
+    posts.splice(req.body.id, 1);
+    // 一覧にリダイレクト
+    res.redirect('/');
+};
 exports.create = function(req, res) {
     // フォームから渡ってきたデータでpostを作る
     var post = {
