@@ -6,7 +6,10 @@ var express = require('express'),
     app = express(),
     post = require('./routes/post'),
     methodOverride = require('method-override'),
-    connect = require('connect');
+    connect = require('connect'),
+    cookieParser = require('cookie-parser'),
+    expressSession = require('express-session'),
+    csrf = require('csurf');
 
 // テンプレートを読み込むための設定
 // テンプレートがどこにあるか設定
@@ -20,6 +23,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 // ブラウザは、getとpostにしか対応していないので、putとdeleteにも対応できるようにするmiddlewareが必要
 app.use(methodOverride('_method'));
 app.use(logger('dev'));
+
+// csrf対策（悪意のあるフォームから変なデータが投稿されないように）
+app.use(cookieParser());
+app.use(expressSession({secret: '2345$56',resave: false, saveUninitialized: true}));
+app.use(csrf());
+app.use(function(req, res, next) {
+    res.locals.csrftoken = req.csrfToken();
+    next();
+});
 
 // routing（いろんな関数を書くのだが、見通しが悪くなるので、別ファイルに書く）
 // 記事一覧
